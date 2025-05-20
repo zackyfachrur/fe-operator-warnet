@@ -5,8 +5,9 @@
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  --green-color: #537D5D;
-  --background-color: rgba(255, 255, 255, 0.87);
+  --purple-color: #603dcc;
+  --purple-light-color: #8768e6;
+  --background-color: rgba(255, 255, 255, 0.95);
   --color: #242424;
   color-scheme: light dark;
   color: var(--color);
@@ -18,4 +19,19 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.router-link-active {
+  color: white;
+  background-image: linear-gradient(
+    to left,
+    var(--purple-color),
+    var(--purple-light-color)
+  );
+}
 
+.router-link-active:hover {
+  opacity: 85%;
+}
+
+* {
+  box-sizing: border-box;
+}
