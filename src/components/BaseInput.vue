@@ -2,7 +2,7 @@
 import { ref, watchEffect } from "vue";
 
 interface Props {
-  modelValue?: string;
+  modelValue?: string | number | null;
   label?: string;
   placeholder?: string;
   name?: string;
@@ -13,7 +13,9 @@ interface Props {
 }
 
 const props = defineProps<Props>();
-const emits = defineEmits<{ (e: "update:modelValue", v: string): void }>();
+const emits = defineEmits<{
+  (e: "update:modelValue", v: string | number): void;
+}>();
 
 const localType = ref(props.type ?? "text");
 const toggle = () => {

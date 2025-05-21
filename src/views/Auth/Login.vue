@@ -51,7 +51,7 @@ const { username, password, confirmPassword, errors, submitForm } =
           :error="errors.confirmPassword"
           toggleable
         />
-
+        <p v-if="errors.general" style="color: red">{{ errors.general }}</p>
         <button
           type="submit"
           class="bg-[var(--purple-color)] text-white font-semibold py-2 rounded cursor-pointer hover:bg-black transition"

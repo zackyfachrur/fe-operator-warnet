@@ -1,5 +1,6 @@
 import { ref, computed } from "vue";
 import { useGlobalRefs } from "../store/useGLobalRefs";
+import { login } from "../services/api";
 
 export const useLoginForm = () => {
   const username = ref("");
@@ -11,6 +12,7 @@ export const useLoginForm = () => {
     username?: string;
     password?: string;
     confirmPassword?: string;
+    general?: string;
   }>({});
 
   const passwordsMatch = computed(
@@ -23,11 +25,9 @@ export const useLoginForm = () => {
     if (!username.value.trim()) {
       errors.value.username = "Username wajib diisi";
     }
-
     if (!password.value) {
       errors.value.password = "Password wajib diisi";
     }
-
     if (!confirmPassword.value) {
       errors.value.confirmPassword = "Konfirmasi password wajib diisi";
     } else if (!passwordsMatch.value) {
@@ -37,20 +37,35 @@ export const useLoginForm = () => {
     return Object.keys(errors.value).length === 0;
   };
 
-  const submitForm = () => {
+  const submitForm = async () => {
     const isValid = validateForm();
 
-    if (isValid) {
-      alert(`Login sukses\nUsername: ${username.value}`);
+    if (!isValid) {
+      isLoggedIn.value = false;
+      localStorage.setItem("isLoggedIn", "false");
+      return;
+    }
+
+    try {
+      const res = await login(username.value, password.value);
+
       isLoggedIn.value = true;
-      localStorage.setItem("username", username.value);
+      localStorage.setItem("username", res.operator.username);
       localStorage.setItem("isLoggedIn", "true");
+
       username.value = "";
       password.value = "";
       confirmPassword.value = "";
-    } else {
+      errors.value = {};
+    } catch (error: any) {
       isLoggedIn.value = false;
       localStorage.setItem("isLoggedIn", "false");
+
+      if (error.response?.data?.message) {
+        errors.value.general = error.response.data.message;
+      } else {
+        errors.value.general = "Terjadi kesalahan saat login.";
+      }
     }
   };
 
