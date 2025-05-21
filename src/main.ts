@@ -6,12 +6,14 @@ import { MotionPlugin } from "@vueuse/motion";
 import "remixicon/fonts/remixicon.css";
 
 // Global Refs
-const showSidebar = ref(false);
+const showSidebar = ref(true);
 const isLoggedIn = ref(false);
+const showCreateBilling = ref(false);
 
 const app = createApp(App);
 app.provide("isLoggedIn", isLoggedIn);
 app.provide("showSidebar", showSidebar);
+app.provide("showCreateBilling", showCreateBilling);
 app.use(MotionPlugin);
 app.use(router);
 app.mount("#app");

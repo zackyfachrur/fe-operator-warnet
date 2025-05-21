@@ -32,6 +32,25 @@
   opacity: 85%;
 }
 
+.button-billing {
+  color: white;
+  background-image: linear-gradient(
+    to left,
+    var(--purple-color),
+    var(--purple-light-color)
+  );
+}
+
 * {
   box-sizing: border-box;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
 }

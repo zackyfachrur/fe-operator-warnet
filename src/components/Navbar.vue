@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useGlobalRefs } from "../store/useGLobalRefs";
 import { useRouter } from "vue-router";
-const { showSidebar } = useGlobalRefs();
+const { showSidebar, showCreateBilling } = useGlobalRefs();
 const globalRefs = useGlobalRefs();
 const router = useRouter();
 const logOut = () => {
@@ -25,7 +25,7 @@ const logOut = () => {
       :leave="{ opacity: 0, scale: 0.5 }"
       class="inline-block"
     >
-      <i :class="showSidebar ? 'ri-side-bar-line' : 'ri-side-bar-fill'"></i>
+      <i :class="showSidebar ? 'ri-close-line' : 'ri-side-bar-fill'"></i>
     </Motion>
   </button>
 
@@ -35,10 +35,11 @@ const logOut = () => {
     :initial="{ opacity: 1 }"
     :enter="{ opacity: 1 }"
     :leave="{ opacity: 1 }"
+    class="fixed top-0 left-0 h-[100vh] w-[250px] z-30"
   >
     <nav
       class="flex flex-col justify-between pb-8 top-0 left-0 h-[100vh] w-[250px] bg-white text-[var(--purple-color)] font-semibold pt-20 transition-transform duration-300 ease-in-out px-6 drop-shadow-xl"
-      :class="showSidebar ? 'translate-x-0' : '-translate-x-[400px]'"
+      :class="showSidebar ? 'translate-x-0' : '-translate-x-[140px]'"
     >
       <div class="flex flex-col">
         <router-link
@@ -48,15 +49,16 @@ const logOut = () => {
           ><i class="ri-dashboard-3-line"></i> Dashboard</router-link
         >
         <router-link
-          to="/about"
+          to="/user"
           class="px-4 py-2 rounded-2xl transition duration-200 active:scale-95"
           :class="showSidebar ? 'translate-x-0' : '-translate-x-[170px]'"
-          ><i class="ri-group-fill"></i> Komputer Aktif</router-link
+          ><i class="ri-computer-line"></i> Komputer Aktif</router-link
         >
       </div>
       <div class="w-full flex flex-col gap-1">
         <button
           class="bg-gradient-to-r from-gray-950 to-gray-800 hover:opacity-80 active:scale-95 text-white py-2 rounded-2xl flex justify-between px-8 cursor-pointer transition hover:duration-10"
+          @click="showCreateBilling = true"
           :class="
             showSidebar
               ? 'translate-x-0 duration-500'
